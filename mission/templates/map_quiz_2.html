@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css" />
+        <link rel="icon" href="../static/favicon.ico" />
+        <h1>Task 2: Quiz (4 minutes to complete) {{ id }}</h1>
+        <h3 id="timer">TIME REMAINING: 240 seconds</h3>
+
+        <h3>Directions: In the map below, each of the rooms is labeled with a number.
+            For each room, type the number label corresponding to the room. Hover over the number to see region. <br><br></h3>
+        <div>Click "Submit" when finished. Page will automatically redirect when timer ends.<br></div>
+        <img src="../static/assets/map2_w_circles.png" usemap="#image-map" class="map" style="width:590px;height:320px;">
+        <map name="image-map">
+            <area class="region" target="_top" alt="President Kay's Office" title="President Kay's Office" href="" coords="8,9,66,116" shape="rect">
+            <area class="region" target="_top" alt="Room 202" title="Room 202" href="" coords="7,122,66,186" shape="rect">
+            <area class="region" target="_top" alt="Room 201" title="Room 201" href="" coords="9,196,65,256" shape="rect">
+            <area class="region" target="_top" alt="Room 200" title="Room 200" href="" coords="5,262,64,311" shape="rect">
+            <area class="region" target="_top" alt="Room 203" title="Room 203" href="" coords="72,9,122,49" shape="rect">
+            <area class="region" target="_top" alt="Room 204" title="Room 204" href="" coords="129,9,185,47" shape="rect">
+            <area class="region" target="_top" alt="Room 205" title="Room 205" href="" coords="191,9,241,47" shape="rect">
+            <area class="region" target="_top" alt="Corporate Suite 1" title="Corporate Suite 1" href="" coords="246,9,324,49" shape="rect">
+            <area class="region" target="_top" alt="Corporate Suite 2" title="Corporate Suite 2" href="" coords="330,8,413,48" shape="rect">
+            <area class="region" target="_top" alt="Room 206" title="Room 206" href="" coords="417,10,470,49" shape="rect">
+            <area class="region" target="_top" alt="Room 207" title="Room 207" href="" coords="475,10,528,48" shape="rect">
+            <area class="region" target="_top" alt="Room 208" title="Room 208" href="" coords="531,10,584,47" shape="rect">
+            <area class="region" target="_top" alt="Upper Corridor" title="Upper Corridor" href="" coords="70,52,582,78" shape="rect">
+            <area class="region" target="_top" alt="Left Hallway" title="Left Hallway" href="" coords="72,79,105,311" shape="rect">
+            <area class="region" target="_top" alt="The Chemistry Lab" title="The Chemistry Lab" href="" coords="109,82,216,219" shape="rect">
+            <area class="region" target="_top" alt="Women's Room" title="Women's Room" href="" coords="108,228,159,281" shape="rect">
+            <area class="region" target="_top" alt="Men's Room" title="Men's Room" href="" coords="166,229,218,284" shape="rect">
+            <area class="region" target="_top" alt="Middle Hallway" title="Middle Hallway" href="" coords="222,79,255,284" shape="rect">
+            <area class="region" target="_top" alt="Lower Corridor" title="Lower Corridor" href="" coords="105,284,582,313" shape="rect">
+            <area class="region" target="_top" alt="Carnegie Conference Room" title="Carnegie Conference Room" href="" coords="260,83,337,175" shape="rect">
+            <area class="region" target="_top" alt="Michelin Conference Room" title="Michelin Conference Room" href="" coords="260,184,340,248" shape="rect">
+            <area class="region" target="_top" alt="Backstage Room" title="Backstage Room" href="" coords="261,249,339,281" shape="rect">
+            <area class="region" target="_top" alt="Room 209" title="Room 209" href="" coords="345,83,395,143" shape="rect">
+            <area class="region" target="_top" alt="Room 210" title="Room 210" href="" coords="381,178,426,211" shape="rect">
+            <area class="region" target="_top" alt="Technology Nook" title="Technology Nook" href="" coords="380,217,448,280" shape="rect">
+            <area class="region" target="_top" alt="Creativity Nook" title="Creativity Nook" href="" coords="456,218,527,280" shape="rect">
+            <area class="region" target="_top" alt="Right Hallway" title="Right Hallway" href="" coords="530,79,584,284" shape="rect">
+            <area class="region" target="_top" alt="Taylor Auditorium" title="Taylor Auditorium" href="" coords="431,85,430,173,445,174,446,166,456,168,458,160,471,163,472,154,490,155,491,163,505,163,503,171,516,170,516,176,528,177,528,84" shape="poly">
+            <area class="region" target="_top" alt="Zigzag Hallway" title="Zigzag Hallway" href="" coords="340,283,342,149,398,145,396,78,430,79,428,173,378,172,376,283" shape="poly">
+            <area class="region" target="_top" alt="Taylor Sound Room" title="Taylor Sound Room" href="" coords="430,209,429,177,450,177,449,168,458,169,459,160,473,161,473,152,489,154,491,163,501,165,501,171,516,171,516,178,524,178,526,211" shape="poly">
+        </map>
+        <div><br></div>
+        <script>
+            var url_string = window.location.href
+            var url = new URL(url_string);
+            var round_number = url.searchParams.get("round");
+
+            var condition_number = url.searchParams.get("condition");
+            var name_id = url.searchParams.get("workerId");
+            function openForm() {
+                document.getElementById("popupForm").style.display = "block";
+            }
+            function closeForm() {
+                c1 = document.getElementById("circle_1").value;
+                c2 = document.getElementById("circle_2").value;
+                c3 = document.getElementById("circle_3").value;
+                c4 = document.getElementById("circle_4").value;
+                c5 = document.getElementById("circle_5").value;
+                c6 = document.getElementById("circle_6").value;
+                c7 = document.getElementById("circle_7").value;
+                c8 = document.getElementById("circle_8").value;
+                c9 = document.getElementById("circle_9").value;
+                c10 = document.getElementById("circle_10").value;
+                c11 = document.getElementById("circle_11").value;
+                c12 = document.getElementById("circle_12").value;
+                c13 = document.getElementById("circle_13").value;
+                c14 = document.getElementById("circle_14").value;
+                c15 = document.getElementById("circle_15").value;
+                c16 = document.getElementById("circle_16").value;
+                c17 = document.getElementById("circle_17").value;
+                c18 = document.getElementById("circle_18").value;
+                c19 = document.getElementById("circle_19").value;
+                c20 = document.getElementById("circle_20").value;
+                c21 = document.getElementById("circle_21").value;
+                c22 = document.getElementById("circle_22").value;
+                c23 = document.getElementById("circle_23").value;
+                c24 = document.getElementById("circle_24").value;
+                c25 = document.getElementById("circle_25").value;
+                c26 = document.getElementById("circle_26").value;
+                c27 = document.getElementById("circle_27").value;
+                c28 = document.getElementById("circle_28").value;
+                c29 = document.getElementById("circle_29").value;
+                c30 = document.getElementById("circle_30").value;
+
+                var number_correct = 0;
+                if (c1 == 1 || c1=="1"){
+                    number_correct += 1;
+                }
+                if (c2 == 2 || c2=="2"){
+                    number_correct += 1;
+                }
+                if (c3 == 3 || c3=="3"){
+                    number_correct += 1;
+                }
+                if (c4 == 4 || c4=="4"){
+                    number_correct += 1;
+                }
+                if (c5 == 5 || c5=="5"){
+                    number_correct += 1;
+                }
+                if (c6 == 6 || c6=="6"){
+                    number_correct += 1;
+                }
+                if (c7 == 7 || c7=="7"){
+                    number_correct += 1;
+                }
+                if (c8 == 8 || c8=="8"){
+                    number_correct += 1;
+                }
+                if (c9 == 9 || c9=="9"){
+                    number_correct += 1;
+                }
+                if (c10 == 10 || c10=="10"){
+                    number_correct += 1;
+                }
+                if (c11 == 11 || c11=="11"){
+                    number_correct += 1;
+                }
+                if (c12 == 12 || c12=="12"){
+                    number_correct += 1;
+                }
+                if (c13 == 13 || c13=="13"){
+                    number_correct += 1;
+                }
+                if (c14 == 14 || c14=="14"){
+                    number_correct += 1;
+                }
+                if (c15 == 15 || c15=="15"){
+                    number_correct += 1;
+                }
+                if (c16 == 16 || c16=="16"){
+                    number_correct += 1;
+                }
+                if (c17 == 17 || c17=="17"){
+                    number_correct += 1;
+                }
+                if (c18 == 18 || c18=="18"){
+                    number_correct += 1;
+                }
+                if (c19 == 19 || c19=="19"){
+                    number_correct += 1;
+                }
+                if (c20 == 20 || c20=="20"){
+                    number_correct += 1;
+                }
+                if (c21 == 21 || c21=="21"){
+                    number_correct += 1;
+                }
+                if (c22 == 22 || c22=="22"){
+                    number_correct += 1;
+                }
+                if (c23 == 23 || c23=="23"){
+                    number_correct += 1;
+                }
+                if (c24 == 24 || c24=="24"){
+                    number_correct += 1;
+                }
+                if (c25 == 25 || c25=="25"){
+                    number_correct += 1;
+                }
+                if (c26 == 26 || c26=="26"){
+                    number_correct += 1;
+                }
+                if (c27 == 27 || c27=="27"){
+                    number_correct += 1;
+                }
+                if (c28 == 28 || c28=="28"){
+                    number_correct += 1;
+                }
+                if (c29 == 29 || c29=="29"){
+                    number_correct += 1;
+                }
+                if (c30 == 30 || c30=="30"){
+                    number_correct += 1;
+                }
+                //alert("Score: "+number_correct);
+
+                // document.getElementById("popupForm").style.display = "none";
+                window.location.href = '/remind_2?round='+round_number +'&condition='+condition_number + '&workerId='+name_id+ '&nc='+number_correct;
+                return false;
+            }
+        </script>
+        <style>
+            body {
+                padding:5px;
+                margin: 5px;
+                margin-left:25px;
+                background-color: white;
+                color: black;
+                font-weight: 300;
+                font-size: 15pt;
+
+            }
+            * {
+              box-sizing: border-box;
+            }
+
+            /* Create two equal columns that floats next to each other */
+            .column {
+              float: left;
+              width: 50%;
+              padding: 10px;
+            }
+
+            /* Clear floats after the columns */
+            .test:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+
+            /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+            @media screen and (max-width: 600px) {
+              .column {
+                width: 100%;
+              }
+            }
+        </style>
+    </head>
+    <body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/maphilight/1.4.0/jquery.maphilight.min.js"></script>
+
+        <div class="test" id="popupForm">
+            <form action="" name="quiz_form" class="formContainer" >
+
+                <div class="column" style="background-color:#bbb;">
+                    <label for="circle_28">
+                    <strong>Lower Corridor</strong>
+                </label>
+                <input type="text" id="circle_28" placeholder="" name="circle_28">
+                <br>
+                <label for="circle_29">
+                    <strong>Upper Corridor</strong>
+                </label>
+                <input type="text" id="circle_29" placeholder="" name="circle_29">
+                <br>
+
+                    <label for="circle_4">
+                    <strong>President Kay's Office</strong>
+                </label>
+                <input type="text" id="circle_4" placeholder="" name="circle_4">
+                <br>
+
+                <label for="circle_8">
+                    <strong>Corporate Suite 1</strong>
+                </label>
+                <input type="text" id="circle_8" placeholder="" name="circle_8">
+                <br>
+                <label for="circle_9">
+                    <strong>Corporate Suite 2</strong>
+                </label>
+                <input type="text" id="circle_9" placeholder="" name="circle_9">
+                <br>
+
+                    <label for="circle_16">
+                    <strong>Carnegie Conference Room</strong>
+                </label>
+                <input type="text" id="circle_16" placeholder="" name="circle_16">
+                <br>
+
+                    <label for="circle_26">
+                    <strong>Technology Nook</strong>
+                </label>
+                <input type="text" id="circle_26" placeholder="" name="circle_26">
+                <br>
+                <label for="circle_27">
+                    <strong>Creativity Nook</strong>
+                </label>
+                <input type="text" id="circle_27" placeholder="" name="circle_27">
+                <br>
+
+
+
+
+                <label for="circle_17">
+                    <strong>Michelin Conference Room</strong>
+                </label>
+                <input type="text" id="circle_17" placeholder="" name="circle_17">
+                <br>
+                <label for="circle_18">
+                    <strong>Backstage Room</strong>
+                </label>
+                <input type="text" id="circle_18" placeholder="" name="circle_18">
+                <br>
+                    <label for="circle_15">
+                    <strong>Men's Room</strong>
+                </label>
+                <input type="text" id="circle_15" placeholder="" name="circle_15">
+                <br>
+
+                <label for="circle_14">
+                    <strong>Women's Room</strong>
+                </label>
+                <input type="text" id="circle_14" placeholder="" name="circle_14">
+                <br>
+
+                <label for="circle_20">
+                    <strong>Taylor Auditorium</strong>
+                </label>
+                <input type="text" id="circle_20" placeholder="" name="circle_20">
+                <br>
+                <label for="circle_21">
+                    <strong>Taylor Sound Room</strong>
+                </label>
+                <input type="text" id="circle_21" placeholder="" name="circle_21">
+                <br>
+
+
+
+
+                    <label for="circle_13">
+                    <strong>The Chemistry Lab</strong>
+                </label>
+                <input type="text" id="circle_13" placeholder="" name="circle_13">
+                <br>
+
+
+
+              </div>
+                <div class="column" style="background-color:#aaa;">
+
+                <label for="circle_23">
+                    <strong>Left Hallway</strong>
+                </label>
+                <input type="text" id="circle_23" placeholder="" name="circle_23">
+                <br>
+                    <label for="circle_30">
+                    <strong>Right Hallway</strong>
+                </label>
+                <input type="text" id="circle_30" placeholder="" name="circle_30">
+                <br>
+                <label for="circle_24">
+                    <strong>Middle Hallway</strong>
+                </label>
+                <input type="text" id="circle_24" placeholder="" name="circle_24">
+                <br>
+                <label for="circle_25">
+                    <strong>Zigzag Hallway</strong>
+                </label>
+                <input type="text" id="circle_25" placeholder="" name="circle_25">
+                <br>
+
+                <label for="circle_1">
+                  <strong>Room 200</strong>
+                </label>
+                <input type="text" id="circle_1" placeholder="" name="circle_1">
+                <br>
+                <label for="circle_2">
+                    <strong>Room 201</strong>
+                </label>
+                <input type="text" id="circle_2" placeholder="" name="circle_2">
+                <br>
+                <label for="circle_3">
+                    <strong>Room 202</strong>
+                </label>
+                <input type="text" id="circle_3" placeholder="" name="circle_3">
+                <br>
+
+                <label for="circle_5">
+                    <strong>Room 203</strong>
+                </label>
+                <input type="text" id="circle_5" placeholder="" name="circle_5">
+                <br>
+                <label for="circle_6">
+                    <strong>Room 204</strong>
+                </label>
+                <input type="text" id="circle_6" placeholder="" name="circle_6">
+                <br>
+                <label for="circle_7">
+                    <strong>Room 205</strong>
+                </label>
+                <input type="text" id="circle_7" placeholder="" name="circle_7">
+                <br>
+
+                <label for="circle_10">
+                    <strong>Room 206</strong>
+                </label>
+                <input type="text" id="circle_10" placeholder="" name="circle_10">
+                <br>
+                <label for="circle_11">
+                    <strong>Room 207</strong>
+                </label>
+                <input type="text" id="circle_11" placeholder="" name="circle_11">
+                <br>
+                <label for="circle_12">
+                    <strong>Room 208</strong>
+                </label>
+                <input type="text" id="circle_12" placeholder="" name="circle_12">
+                <br>
+                    <label for="circle_19">
+                    <strong>Room 209</strong>
+                </label>
+                <input type="text" id="circle_19" placeholder="" name="circle_19">
+                <br>
+                    <label for="circle_22">
+                    <strong>Room 210</strong>
+                </label>
+                <input type="text" id="circle_22" placeholder="" name="circle_22">
+                <br>
+
+
+
+              </div>
+            </form>
+        </div>
+
+<!--        <div class="test">-->
+<!--            <div class="test_form" id="popupForm">-->
+<!--              &lt;!&ndash; <form action="/action_page.php" class="formContainer"> &ndash;&gt;-->
+<!--                <form action="" name="quiz_form" class="formContainer">-->
+<!--                <h3>Type the corresponding number for each of the room names. <br><br></h3>-->
+<!--                <label for="circle_1">-->
+<!--                  <strong>Starting Deck</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_1" placeholder="" name="circle_1">-->
+<!--                <br>-->
+<!--                <label for="circle_2">-->
+<!--                    <strong>Room 100</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_2" placeholder="" name="circle_2">-->
+<!--                <br>-->
+<!--                <label for="circle_3">-->
+<!--                    <strong>Open Break Area</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_3" placeholder="" name="circle_3">-->
+<!--                <br>-->
+<!--                <label for="circle_4">-->
+<!--                    <strong>Executive Suite 1</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_4" placeholder="" name="circle_4">-->
+<!--                <br>-->
+<!--                <label for="circle_5">-->
+<!--                    <strong>Executive Suite 2</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_5" placeholder="" name="circle_5">-->
+<!--                <br>-->
+<!--                <label for="circle_6">-->
+<!--                    <strong>King Chris's Office</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_6" placeholder="" name="circle_6">-->
+<!--                <br>-->
+<!--                <label for="circle_7">-->
+<!--                    <strong>King's Terrace</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_7" placeholder="" name="circle_7">-->
+<!--                <br>-->
+<!--                <label for="circle_8">-->
+<!--                    <strong>Left Hallway</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_8" placeholder="" name="circle_8">-->
+<!--                <br>-->
+<!--                <label for="circle_9">-->
+<!--                    <strong>Den</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_9" placeholder="" name="circle_9">-->
+<!--                <br>-->
+<!--                <label for="circle_10">-->
+<!--                    <strong>The Computer Farm</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_10" placeholder="" name="circle_10">-->
+<!--                <br>-->
+<!--                <label for="circle_11">-->
+<!--                    <strong>Entrance Bridge</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_11" placeholder="" name="circle_11">-->
+<!--                <br>-->
+<!--                <label for="circle_12">-->
+<!--                    <strong>Men's Room</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_12" placeholder="" name="circle_12">-->
+<!--                <br>-->
+<!--                <label for="circle_13">-->
+<!--                    <strong>Amway Conference Room</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_13" placeholder="" name="circle_13">-->
+<!--                <br>-->
+<!--                <label for="circle_14">-->
+<!--                    <strong>Women's Room</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_14" placeholder="" name="circle_14">-->
+<!--                <br>-->
+<!--                <label for="circle_15">-->
+<!--                    <strong>Mary Kay Conference Room</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_15" placeholder="" name="circle_15">-->
+<!--                <br>-->
+<!--                <label for="circle_16">-->
+<!--                    <strong>Middle Bridge</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_16" placeholder="" name="circle_16">-->
+<!--                <br>-->
+<!--                <label for="circle_17">-->
+<!--                    <strong>Herbalife Conference Room</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_17" placeholder="" name="circle_17">-->
+<!--                <br>-->
+<!--                <label for="circle_18">-->
+<!--                    <strong>Rear Bridge</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_18" placeholder="" name="circle_18">-->
+<!--                <br>-->
+<!--                <label for="circle_19">-->
+<!--                    <strong>Room 101</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_19" placeholder="" name="circle_19">-->
+<!--                <br>-->
+<!--                <label for="circle_20">-->
+<!--                    <strong>Room 102</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_20" placeholder="" name="circle_20">-->
+<!--                <br>-->
+<!--                <label for="circle_21">-->
+<!--                    <strong>Right Hallway</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_21" placeholder="" name="circle_21">-->
+<!--                <br>-->
+<!--                <label for="circle_22">-->
+<!--                    <strong>Room 111</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_22" placeholder="" name="circle_22">-->
+<!--                <br>-->
+<!--                <label for="circle_23">-->
+<!--                    <strong>Room 110</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_23" placeholder="" name="circle_23">-->
+<!--                <br>-->
+<!--                <label for="circle_24">-->
+<!--                    <strong>Room 109</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_24" placeholder="" name="circle_24">-->
+<!--                <br>-->
+<!--                <label for="circle_25">-->
+<!--                    <strong>Room 108</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_25" placeholder="" name="circle_25">-->
+<!--                <br>-->
+<!--                <label for="circle_26">-->
+<!--                    <strong>Room 107</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_26" placeholder="" name="circle_26">-->
+<!--                <br>-->
+<!--                <label for="circle_27">-->
+<!--                    <strong>Room 106</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_27" placeholder="" name="circle_27">-->
+<!--                <br>-->
+<!--                <label for="circle_28">-->
+<!--                    <strong>Room 105</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_28" placeholder="" name="circle_28">-->
+<!--                <br>-->
+<!--                <label for="circle_29">-->
+<!--                    <strong>Room 104</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_29" placeholder="" name="circle_29">-->
+<!--                <br>-->
+<!--                <label for="circle_30">-->
+<!--                    <strong>Room 103</strong>-->
+<!--                </label>-->
+<!--                <input type="text" id="circle_30" placeholder="" name="circle_30">-->
+<!--                <br>-->
+<!--&lt;!&ndash;                <a href="index.html"><button type="button">Submit</button></a>&ndash;&gt;-->
+<!--                &lt;!&ndash; <button type="submit" class="btn"onclick="closeForm()" href="index.html">Submit</button> &ndash;&gt;-->
+<!--                &lt;!&ndash; <button type="button" class="btn cancel" onclick="closeForm()">Close</button> &ndash;&gt;-->
+<!--              </form>-->
+<!--            </div>-->
+<!--        </div>-->
+        <button type="button" class="btn btn-primary btn-lg" onClick="closeForm();">
+          SUBMIT
+        </button>
+        <script>
+            $(function() {
+                $('.map').maphilight();
+            });
+            $(".region").on("click", function(event){
+                event.preventDefault();
+                
+            });
+            openForm();
+
+
+
+            // MAP TIMER
+            var count=240;
+
+            var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
+
+            function timer()
+            {
+            count=count-1;
+            if (count <= 0)
+            {
+                clearInterval(counter);
+                //counter ended, do something here
+                //window.location.href = '/mission/1';
+                closeForm();
+                return;
+            }
+
+            //Do code for showing the number of seconds here'
+            document.getElementById("timer").innerHTML= "TIME REMAINING: " +count + " seconds"; // watch for spelling
+            }
+
+            window.onload=function(){ 
+                window.setTimeout(function() { document.quiz_form.submit(); }, 240000);
+            };
+
+        </script>
+    </body>
+
+</html>
+
+
+<!-- Image Map Generated by http://www.image-map.net/ -->
+
+

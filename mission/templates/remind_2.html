@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+        <meta charset="utf-8" />
+		<title>Search-and-Rescue Experiment</title>
+		<link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css" />
+        <link rel="icon" href="../static/favicon.ico" />
+		<style type="text/css">
+			/* these styles need to be defined locally */
+			body {
+			    padding:0px;
+			    margin: 0px;
+			    background-color: white;
+			    color: black;
+			    font-weight: 300;
+			    font-size: 13pt;
+			}
+
+			/* ad.html  - the ad that people view first */
+			#adlogo {
+			    width: 140px;
+			    padding: 2px;
+			    border: 1px solid #ccc;
+			    margin-right: 1em;
+			}
+
+            #container-not-an-ad { /* obtuse name because pesky ad-blocker extensions */
+				background: white;
+			    margin: 30px;
+			}
+
+			h1 {
+				margin-top: 0px;
+			}
+			.center {
+			  display: block;
+			  margin-left: auto;
+			  margin-right: auto;
+			  width: 50%;
+			}
+			.center_quarter {
+			  display: block;
+			  margin-left: auto;
+			  margin-right: auto;
+			  width: 35%;
+			}
+			.center_large {
+			  display: block;
+			  margin-left: auto;
+			  margin-right: auto;
+			  width: 75%;
+			}
+		</style>
+
+        <script>
+            var url_string = window.location.href
+            var url = new URL(url_string);
+            var round_number = url.searchParams.get("round");
+
+            var condition_number = url.searchParams.get("condition");
+            var name_id = url.searchParams.get("workerId");
+            var num_correct = url.searchParams.get("nc");
+            var time_to_memorize = 1;
+            function redirect_to_game() {
+                // document.getElementById("popupForm").style.display = "none";
+                window.location.href = '/mission_2?round='+round_number +'&condition='+condition_number + '&workerId='+name_id+ '&nc='+num_correct;
+                return false;
+            }
+        </script>
+	</head>
+	<body>
+		<div id="container-not-an-ad" class="media">
+			<div class="media-left pull-left" href="#">
+				<img id="adlogo" src="../static/images/university.png" alt="Lab Logo" />
+			</div>
+			<div class="media-body">
+
+					<h1>Round 2 of 2: Prepare to Enter the Building</h1>
+
+                    <p style="font-size:20px">Now you will enter the building and begin search-and-rescue.</p>
+
+                    <p style="font-size:24px"><strong>Remember, you MUST FOLLOW the instructions of CANA, the second navigation assistant.</strong></p>
+
+					<p style="font-size:24px"> <strong>CANA has located all victims and will guide you through the building
+					by providing on-screen instructions. </strong><br><br></p>
+
+
+					<h2><br>Click to begin. If needed, re-read the details again below.<br><br></h2>
+					<button type="button" id="next" value="next" class="btn btn-primary btn-lg continue" onClick="redirect_to_game();">
+                        Begin Search-and-Rescue <span class="glyphicon glyphicon-arrow-right"></span>
+                    </button><br><br><br>
+
+
+
+					<h2>Part A: Overview <br><br></h2>
+					<p>In this game, you are represented as the red triangle. Field of view will be restricted to a 5 step radius, and tiles outside
+					of your field of view are hidden in black. A small mini-map of the entire building is provided in the upper right hand corner.</p>
+
+
+					<img src="../static/assets/how_to_screen_basic.png" class="center" ><br><br>
+
+					<p>Below is an overview of all tile types in the game. Floors and doors are traversable, and walls are not.</p>
+					<img src="../static/assets/tile_table.png" class="center_quarter" ><br><br>
+
+					<p>Doors will restrict your field of view, since they are initially "closed". But once you are at the door,
+						you will be able to see the contents behind.</p>
+					<img src="../static/assets/how_to_doors_example.png" class="center" ><br><br>
+
+					<p>You will be provided several on-screen tools.</p>
+					<img src="../static/assets/how_to_onscreen_tools.png" class="center_large" ><br><br>
+
+
+					<h2>Part B. Victims Details <br><br></h2>
+					<p>There are 2 types of victims, each with different point values and expiration times. You must be standing at the same
+						location as a victim to save. Press SPACE key 1 time to save victim. <br><br></p>
+					<img src="../static/assets/how_to_victim_details.png" class="center_large"><br><br>
+
+					<h2>Part C: How to Move <br><br></h2>
+					<img src="../static/assets/how_to_move.png" style="width:600px" ><br><br>
+
+
+					<h2><br>Click to begin.<br><br></h2>
+					<button type="button" id="next" value="next" class="btn btn-primary btn-lg continue" onClick="redirect_to_game();">
+                        Begin Search-and-Rescue <span class="glyphicon glyphicon-arrow-right"></span>
+                    </button><br><br><br>
+
+
+
+
+
+
+			</div>
+		</div>
+	</body>
+</html>
+
+

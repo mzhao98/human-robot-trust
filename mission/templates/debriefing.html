@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+
+<html>
+<head>
+        <meta charset="utf-8" />
+	<title>Debriefing</title>
+<!--	<link rel="stylesheet" href="../static/css/task.css" type="text/css" media="screen" />-->
+	<link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css" />
+	<link rel="icon" href="../static/favicon.ico" />
+	<script>
+            var url_string = window.location.href
+            var url = new URL(url_string);
+            var round_number = url.searchParams.get("round");
+
+            var condition_number = url.searchParams.get("condition");
+            var name_id = url.searchParams.get("workerId");
+            var mkey = url.searchParams.get("mk");
+            function onNext() {
+                // document.getElementById("popupForm").style.display = "none";
+                window.location.href = '/end_participated?round='+round_number +'&condition='+condition_number + '&workerId='+name_id  + '&mk='+mkey;
+            }
+        </script>
+	<style>
+		body {
+			padding:5px;
+			margin: 5px;
+			background-color: white;
+			color: black;
+			font-weight: 300;
+			font-size: 15pt;
+
+		}
+	</style>
+</head>
+<body>
+	<div id="debriefing">
+		<h1>Debriefing</h1>
+
+		<div id="debriefingtext">
+		<p>Thank you for your participation in our study!  Your anonymous data makes an
+		important contribution to our understanding of human learning, memory, and adaptivity. </p>
+
+		<p>If you have any questions about this research, you may contact mzhao2@andrew.cmu.edu.</p>
+		</div>
+
+			<p class="cool">Do you agree to the following statement?</p>
+			<div id="affirmationbox">
+				<p>I feel that I have been adequately debriefed about the nature
+					of the study.  The investigator has explained the purposes of the
+					research to me, and I feel that any questions I have asked were
+					satisfactorily answered.</p>
+					<button type="button" class="btn btn-primary btn-lg" onClick="onNext()"> Yes, I agree. Retrieve survey code. </button>
+					<button type="button" class="btn btn-danger btn-lg" onClick="onNext()">No, please withhold my data. I will contact the experimenter with questions.</button>
+
+			</div>
+	</div>
+</body>
+
+</html>

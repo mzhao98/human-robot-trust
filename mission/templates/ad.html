@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+        <meta charset="utf-8" />
+		<title>Search-and-Rescue Experiment</title>
+		<link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css" />
+        <link rel="icon" href="../static/favicon.ico" />
+		<style type="text/css">
+			/* these styles need to be defined locally */
+			body {
+			    padding:0px;
+			    margin: 0px;
+			    background-color: white;
+			    color: black;
+			    font-weight: 300; 
+			    font-size: 13pt;
+			}
+
+			/* ad.html  - the ad that people view first */
+			#adlogo {
+			    width: 140px;
+			    padding: 2px;
+			    border: 1px solid #ccc;
+			    margin-right: 1em;
+			}
+
+            #container-not-an-ad { /* obtuse name because pesky ad-blocker extensions */
+				background: white;
+			    margin: 30px;
+			}
+
+			h1 {
+				margin-top: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container-not-an-ad" class="media">
+			<div class="media-left pull-left" href="#">
+						<!-- REPLACE THE LOGO HERE WITH YOUR  UNIVERSITY, LAB, or COMPANY -->
+						<img id="adlogo" src="../static/images/university.png" alt="Lab Logo" />
+			</div>
+			<div class="media-body">
+
+					<h1>Search and Rescue Experiment: Call for Participants</h1>
+					<p>
+						The Human and Robot Partners Lab at Carnegie Mellon University is looking for online participants
+						for a brief psychology experiment.
+					</p>
+					<p>
+						<strong style="font-size: 24px;">You MUST be able to run this study in a GOOGLE CHROME browser only. <br></strong>
+					</p>
+					<p>
+						You must also be at least 18 years old and a fluent English speaker.
+						The task will take 30-40 minutes and will pay $6.35.
+					</p>
+
+					<div class="alert alert-danger">
+						<strong>This task can only be completed once.</strong>
+						If you have already completed this task before the system will not
+						allow you to run again. If this looks familiar please return the
+						HIT so someone else can participate.
+					</div>
+					<p>
+						Otherwise, please click the "Begin Experiment" button below to start the task.
+					</p>
+
+					<p>
+						By clicking the following URL link, you will be taken to the experiment,
+						including complete instructions and an informed consent agreement.
+					</p>
+					<script type="text/javascript">
+						// Detect Chrome
+
+
+
+						function openwindow() {
+							var isChrome = !!window.chrome || (!!window.chrome.webstore || !!window.chrome.runtime);
+							var isMobile = {
+								Android: function() {
+									return navigator.userAgent.match(/Android/i);
+								},
+								BlackBerry: function() {
+									return navigator.userAgent.match(/BlackBerry/i);
+								},
+								iOS: function() {
+									return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+								},
+								Opera: function() {
+									return navigator.userAgent.match(/Opera Mini/i);
+								},
+								Windows: function() {
+									return navigator.userAgent.match(/IEMobile/i);
+								},
+								any: function() {
+									return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+								}
+							};
+
+							if (isChrome == false || isMobile ==true){
+
+								window.location.href = '/end_not_participated';
+							}
+
+							else{
+								const random_conditions = [1,2,3];
+								const round_number = 1;
+								const condition_number = random_conditions[Math.floor(Math.random()*random_conditions.length)];
+								window.location.href = '/name?round='+round_number+'&condition='+condition_number;
+							};
+						}
+						function closewindow() {
+							window.location.href = '/end_not_participated';
+						}
+					</script>
+
+					<button type="button" class="btn btn-primary btn-lg" onClick="openwindow();">
+					  Accept HIT
+					</button>
+
+					<button type="button" class="btn btn-primary btn-lg" onClick="closewindow();">
+					  Exit
+					</button>
+
+
+
+			</div>
+		</div>
+	</body>
+</html>

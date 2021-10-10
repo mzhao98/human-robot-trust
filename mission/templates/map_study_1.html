@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css" />
+        <link rel="icon" href="../static/favicon.ico" />
+        <!-- <img src="assets/map_labelled.png" style="width:600px;height:300px;"> -->
+<!--        <h1>Study ID: {{ id }}</h1>-->
+        <h2 id='interactive_title'> Your Task: Memorize the building map.</h2>
+        <p> <strong style="font-size: 28px;"><br> Directions: Memorize the names of all of the rooms in the building.
+            You have until the timer ends to memorize.</strong> <br></p>
+        <p style="font-size: 24px;"> If you are confident that you have
+            completely memorized all room names before the timer ends, click "Done Studying" to proceed. Otherwise,
+            the page will automatically redirect once the timer ends.<br><br></p>
+        <h2 id="timer">TIME REMAINING: 60 seconds</h2>
+        <img src="../static/assets/map_labelled_2.png" style="width:1000px;">
+<!--        <h3 id='interactive_title'> The map below is interactive and designed to help you help you memorize.-->
+<!--            Identify the room name and hover of the room region to get the room name and check your knowledge.</h3>-->
+<!--        <div id='content'> Room name will appear here.</div>-->
+<!--        <img src="../static/assets/map_pic.png" usemap="#image-map" class="map">-->
+<!--        <map name="image-map">-->
+<!--            <area class="region" target="_top" alt="Starting Deck" title="Starting Deck" href="" coords="148,55,111,15" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Room 100" title="Room 100" href="" coords="154,17,174,60" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Open Break Area" title="Open Break Area" href="" coords="179,16,226,57" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Executive Suite 1" title="Executive Suite 1" href="" coords="235,16,331,58" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Executive Suite 2" title="Executive Suite 2" href="" coords="337,13,422,59" shape="rect">-->
+<!--            <area class="region" target="_top" alt="King Chris' Office" title="King Chris' Office" href="" coords="430,17,430,56,467,57,473,108,522,110,519,15" shape="poly">-->
+<!--            <area class="region" target="_top" alt="The King's Terrace" title="The King's Terrace" href="" coords="528,18,527,108,554,95,570,74,570,48,556,23" shape="poly">-->
+<!--            <area class="region" target="_top" alt="Herbalife Conference Room" title="Herbalife Conference Room" href="" coords="435,225,384,94" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Amway Conference Room" title="Amway Conference Room" href="" coords="300,95,348,155" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Mary Kay Conference Room" title="Mary Kay Conference Room" href="" coords="301,163,350,225" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Den" title="Den" href="" coords="251,94,288,115" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Men's Room" title="Men's Room" href="" coords="249,118,288,170" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Women's Room" title="Women's Room" href="" coords="250,175,291,225" shape="rect">-->
+<!--            <area class="region" target="_top" alt="The Computer Farm" title="The Computer Farm" href="" coords="110,96,215,227" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Left Hallway" title="Left Hallway" href="" coords="110,60,465,92" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Right Hallway" title="Right Hallway" href="" coords="30,230,520,253" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Entrance Bridge" title="Entrance Bridge" href="" coords="221,93,247,228" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Middle Bridge" title="Middle Bridge" href="" coords="355,90,381,229" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Rear Bridge" title="Rear Bridge" href="" coords="442,93,466,228" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Room 101" title="Room 101" href="" coords="471,117,522,172" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Room 102" title="Room 102" href="" coords="471,175,522,226" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Room 103" title="Room 103" href="" coords="469,258,521,310" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Room 104" title="Room 104" href="" coords="417,261,464,308" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Room 105" title="Room 105" href="" coords="361,261,411,308" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Room 106" title="Room 106" href="" coords="307,262,356,310" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Room 107" title="Room 107" href="" coords="251,260,301,310" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Room 108" title="Room 108" href="" coords="198,260,247,310" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Room 109" title="Room 109" href="" coords="140,259,190,309" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Room 110" title="Room 110" href="" coords="84,262,136,310" shape="rect">-->
+<!--            <area class="region" target="_top" alt="Room 111" title="Room 111" href="" coords="31,262,80,309" shape="rect">-->
+<!--        </map>-->
+        <script>
+            var url_string = window.location.href
+            var url = new URL(url_string);
+            var round_number = url.searchParams.get("round");
+
+            var condition_number = url.searchParams.get("condition");
+            var name_id = url.searchParams.get("workerId");
+            var time_to_memorize = 1;
+            var count=60;
+            if (condition_number != 1){
+                time_to_memorize = 5;
+                count=300;
+                document.getElementById("interactive_title").innerHTML="Your Task: Memorize the building map. You have 5 minutes.";
+                document.getElementById("timer").innerHTML="TIME REMAINING: 300 seconds";
+            }
+            else{
+                document.getElementById("interactive_title").innerHTML="Your Task: Memorize the building map. You have 1 minute.";
+                document.getElementById("timer").innerHTML="TIME REMAINING: 60 seconds";
+            }
+            function onNext() {
+                window.location.href = '/quiz_1?round='+round_number +'&condition='+condition_number + '&workerId='+name_id;
+            }
+        </script>
+        <style>
+            body {
+                padding:5px;
+                margin: 5px;
+                margin-left:25px;
+                background-color: white;
+                color: black;
+                font-weight: 300;
+                font-size: 15pt;
+
+            }
+        </style>
+    </head>
+    <body>
+        <br>
+        <button type="button" class="btn btn-primary btn-lg" onClick="onNext();">
+          Done Studying (Click only if 100% confident. Page will automatically redirect.)
+        </button>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/maphilight/1.4.0/jquery.maphilight.min.js"></script>
+        
+        <script>
+            $(function() {
+                $('.map').maphilight();
+            });
+            $(".region").on("click", function(event){
+                event.preventDefault();
+                // alert(event.currentTarget.title);
+                document.getElementById("content").innerHTML = event.currentTarget.title;
+            });
+            // MAP TIMER
+
+
+            var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
+
+            function timer()
+            {
+            count=count-1;
+            if (count <= 0)
+            {
+                clearInterval(counter);
+                //counter ended, do something here
+                //window.location.href = '/quiz/1';
+                onNext();
+                return;
+            }
+
+            //Do code for showing the number of seconds here'
+            document.getElementById("timer").innerHTML= "TIME REMAINING: " +count + " seconds"; // watch for spelling
+            }
+
+            window.onload=function(){
+                if (condition_number != 1){
+                    window.setTimeout(function() { document.quiz_form.submit(); }, 300000);
+                }
+                else{
+                    window.setTimeout(function() { document.quiz_form.submit(); }, 60000);
+                }
+            };
+        </script>
+    </body>
+
+</html>
+

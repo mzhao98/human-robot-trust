@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+        <meta charset="utf-8" />
+		<title>Psychology Experiment</title>
+		<link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css" />
+		<link rel="stylesheet" href="../static/css/style.css" type="text/css" />
+		<script>
+            var url_string = window.location.href
+            var url = new URL(url_string);
+            var round_number = url.searchParams.get("round");
+
+            var condition_number = url.searchParams.get("condition");
+            var name_id = url.searchParams.get("workerId");
+            var mkey = url.searchParams.get("mk");
+
+            document.getElementById("round").innerHTML = "Round: "+round_number;
+            function redirect_next() {
+                // document.getElementById("popupForm").style.display = "none";
+                window.location.href = '/complete?round='+round_number +'&condition='+condition_number + '&workerId='+name_id;
+            }
+        </script>
+		<style>
+		body {
+			padding:5px;
+			margin: 5px;
+			background-color: white;
+			color: black;
+			font-weight: 300;
+			font-size: 15pt;
+
+		}
+	</style>
+	</head>
+	<body>
+		<div id="container-not-an-ad" class="media">
+			<div class="media-left pull-left" href="#">
+						<!-- REPLACE THE LOGO HERE WITH YOUR  UNIVERSITY, LAB, or COMPANY -->
+						<img id="adlogo" src="../static/images/university.png" alt="Lab Logo" />
+			</div>
+			<div class="media-body">
+						<h1>Thanks for your participation!</h1>
+						<hr />
+					    <div class="alert alert-warning"> <strong id="mkey"></strong>
+						<br><br>Copy and paste this code into MTurk to receive payment. Thank you for completing the survey.</div>
+						<button type="button" class="btn btn-primary btn-lg" onClick="redirect_next();">
+						  Next
+						</button>
+			</div>
+
+		</div>
+		<script>
+			document.getElementById("mkey").innerHTML = "Your Survey Code is: "+mkey;
+
+		</script>
+	</body>
+</html>
